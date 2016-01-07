@@ -1,0 +1,33 @@
+{
+    "name": "talesoft/tale-event",
+    "type": "library",
+    "keywords": ["event", "php"],
+    "description": "A simple and minimalistic event library",
+    "license": "MIT",
+    "homepage": "http://event.tale.talesoft.io",
+    "authors": [
+        {
+            "name": "Talesoft",
+            "homepage": "http://talesoft.io",
+            "email": "info@talesoft.io"
+        },
+        {
+            "name": "Torben Koehn",
+            "email": "tk@talesoft.io"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tale\\": ""
+        }
+    },
+    "suggest": {
+    }
+}
