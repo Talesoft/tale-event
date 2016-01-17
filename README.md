@@ -1,5 +1,5 @@
 
-# Tale Stream
+# Tale Event
 **A Tale Framework Component**
 
 # What is Tale Event?
