@@ -1,14 +1,23 @@
 
-# Tale Event
+# Tale Stream
+**A Tale Framework Component**
 
-A minimalistic event library for PHP
+# What is Tale Event?
 
----
+Tale Event is a minimalistic and fast event-library for PHP
 
+# Installation
 
-## Usage
+Install via Composer
 
-### Single Events
+```bash
+composer require "talesoft/tale-event:*"
+composer install
+```
+
+# Usage
+
+# Single Events
 
 ```php
 $event = new Event('event-name');
@@ -24,7 +33,7 @@ $event->trigger([
 ```
 
 
-### Default Prevention
+# Default Prevention
 
 ```php
 $event->addListener(function($e) {
@@ -41,7 +50,7 @@ if (!$event->trigger()) {
 ```
 
 
-### Cancellation
+# Cancellation
 
 ```php
 $event->addListener(function($e) {
@@ -59,7 +68,7 @@ $event->trigger(); //<- Returns `false` since the event was cancelled, so we can
 ```
 
 
-### Event Emitters
+# Event Emitters
 
 ```php
 
