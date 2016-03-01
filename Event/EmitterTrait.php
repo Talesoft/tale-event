@@ -10,7 +10,7 @@ trait EmitterTrait
     /**
      * @var Event[]
      */
-    private $_events = [];
+    private $events = [];
 
     /**
      * @param string $name
@@ -20,10 +20,10 @@ trait EmitterTrait
     public function getEvent($name)
     {
 
-        if (!isset($this->_events[$name]))
-            $this->_events[$name] = new Event($name);
+        if (!isset($this->events[$name]))
+            $this->events[$name] = new Event($name);
 
-        return $this->_events[$name];
+        return $this->events[$name];
     }
 
     public function on($eventName, $listener)
@@ -33,6 +33,16 @@ trait EmitterTrait
         $event->addListener($listener);
 
         return $this;
+    }
+
+    public function once($eventName, $listener)
+    {
+
+        return $this->on($eventName, function ($e) use ($eventName, $listener) {
+
+            $this->off($eventName, $listener);
+            return call_user_func($listener, $e);
+        });
     }
 
     public function off($eventName, $listener)
@@ -47,9 +57,9 @@ trait EmitterTrait
     public function emit($eventName, $args = null)
     {
 
-        if (!isset($this->_events[$eventName]))
+        if (!isset($this->events[$eventName]))
             return true;
 
-        return $this->_events[$eventName]->trigger($args);
+        return $this->events[$eventName]->trigger($args);
     }
 }

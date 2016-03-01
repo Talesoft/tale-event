@@ -5,16 +5,16 @@ namespace Tale\Event;
 class Args
 {
 
-    private $_data;
-    private $_cancelled;
-    private $_defaultPrevented;
+    private $data;
+    private $cancelled;
+    private $defaultPrevented;
 
     public function __construct($data = null)
     {
 
-        $this->_data = [];
-        $this->_cancelled = false;
-        $this->_defaultPrevented = false;
+        $this->data = [];
+        $this->cancelled = false;
+        $this->defaultPrevented = false;
 
         $this->setData($data);
     }
@@ -22,7 +22,7 @@ class Args
     public function getData()
     {
 
-        return $this->_data;
+        return $this->data;
     }
 
     public function setData($data)
@@ -30,14 +30,14 @@ class Args
 
         if ($data === null) {
 
-            $this->_data = [];
+            $this->data = [];
             return $this;
         }
 
         if (!is_array($data))
             $data = ['value' => $data];
 
-        $this->_data = $data;
+        $this->data = $data;
 
         return $this;
     }
@@ -45,13 +45,13 @@ class Args
     public function isCancelled()
     {
 
-        return $this->_cancelled;
+        return $this->cancelled;
     }
 
     public function cancel()
     {
 
-        $this->_cancelled = true;
+        $this->cancelled = true;
 
         return $this;
     }
@@ -59,13 +59,13 @@ class Args
     public function isDefaultPrevented()
     {
 
-        return $this->_defaultPrevented;
+        return $this->defaultPrevented;
     }
 
     public function preventDefault()
     {
 
-        $this->_defaultPrevented = true;
+        $this->defaultPrevented = true;
 
         return $this;
     }
@@ -73,12 +73,12 @@ class Args
     public function &__get($key)
     {
 
-        return $this->_data[$key];
+        return $this->data[$key];
     }
 
     public function __set($key, $value)
     {
 
-        $this->_data[$key] = $value;
+        $this->data[$key] = $value;
     }
 }

@@ -5,8 +5,8 @@ namespace Tale;
 class Event
 {
 
-    private $_name;
-    private $_listeners;
+    private $name;
+    private $listeners;
 
     public function __construct($name)
     {
@@ -16,8 +16,8 @@ class Event
                 'Arguments 1 passed to Event->__constructs needs to be a string with at least 1 character'
             );
 
-        $this->_name = $name;
-        $this->_listeners = [];
+        $this->name = $name;
+        $this->listeners = [];
     }
 
     /**
@@ -25,7 +25,7 @@ class Event
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -33,7 +33,7 @@ class Event
      */
     public function getListeners()
     {
-        return $this->_listeners;
+        return $this->listeners;
     }
 
     public function addListener($listener)
@@ -44,7 +44,7 @@ class Event
                 'Argument 1 passed to Event->addListener needs to be a valid callback'
             );
 
-        $this->_listeners[] = $listener;
+        $this->listeners[] = $listener;
 
         return $this;
     }
@@ -57,14 +57,14 @@ class Event
                 'Argument 1 passed to Event->removeListener needs to be a valid callback'
             );
 
-        $index = array_search($listener, $this->_listeners, true);
+        $index = array_search($listener, $this->listeners, true);
 
         if ($index === false)
             throw new \InvalidArgumentException(
                 'Argument 1 passed to Event->removeListener needs to be a registered callback'
             );
 
-        array_splice($this->_listeners, $index, 1);
+        array_splice($this->listeners, $index, 1);
 
         return $this;
     }
@@ -74,14 +74,14 @@ class Event
 
         $args = $args instanceof Event\Args ? $args : new Event\Args($args);
 
-        $len = count($this->_listeners);
+        $len = count($this->listeners);
 
         if ($len < 1)
             return true;
 
         for ($i = 0; $i < $len; $i++) {
 
-            if (call_user_func($this->_listeners[$i], $args, $this) === false)
+            if (call_user_func($this->listeners[$i], $args, $this) === false)
                 $args->preventDefault();
 
             if ($args->isCancelled())
