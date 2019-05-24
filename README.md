@@ -4,11 +4,11 @@
 [![CI](https://img.shields.io/travis/Talesoft/tale-event.svg?style=for-the-badge)](https://travis-ci.org/Talesoft/tale-event)
 [![Coverage](https://img.shields.io/codeclimate/coverage/Talesoft/tale-stream.svg?style=for-the-badge)](https://codeclimate.com/github/Talesoft/tale-event)
 
-Tale Stream
-===========
+Tale Event
+==========
 
-What is Tale Stream?
---------------------
+What is Tale Event?
+-------------------
 
 A PSR-14 Event Dispatcher implementation
 
