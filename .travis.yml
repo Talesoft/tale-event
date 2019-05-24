@@ -14,7 +14,7 @@ install:
     - travis_retry composer install
 
 script:
-    - vendor/bin/tale-dev check --report --coverage-php-version=7.1
+    - vendor/bin/tale-dev check --report --coverage-php-version=7.2
 
 addons:
     code_climate:
