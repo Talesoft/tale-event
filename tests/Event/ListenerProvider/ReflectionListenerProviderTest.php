@@ -22,7 +22,8 @@ class ReflectionListenerProviderTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $listener = function (TestEvent $event) {};
+        $listener = function (TestEvent $event) {
+        };
         $provider = new ReflectionListenerProvider([
             $listener
         ]);
@@ -36,7 +37,8 @@ class ReflectionListenerProviderTest extends TestCase
      */
     public function testAddListener(): void
     {
-        $listener = function (TestEvent $event) {};
+        $listener = function (TestEvent $event) {
+        };
         $provider = new ReflectionListenerProvider();
         $provider->addListener($listener);
 
@@ -49,7 +51,8 @@ class ReflectionListenerProviderTest extends TestCase
      */
     public function testRemoveListener(): void
     {
-        $listener = function (TestEvent $event) {};
+        $listener = function (TestEvent $event) {
+        };
         $provider = new ReflectionListenerProvider();
         $provider->addListener($listener);
         self::assertEquals([$listener], iterator_to_array($provider->getListenersForEvent(new TestEvent())));
@@ -64,12 +67,18 @@ class ReflectionListenerProviderTest extends TestCase
     public function testGetListenersForEvent(): void
     {
         $listeners = [
-            $listener = function (TestEvent $event) {},
-            $listenerAbstract = function (AbstractTestEvent $event) {},
-            function (\stdClass $event) {},
-            $listenerFinal = function (FinalTestEvent $event) {},
-            $listenerStoppable = function (StoppableEventInterface $event) {},
-            $listenerInterface = function (TestEventInterface $event) {}
+            $listener = function (TestEvent $event) {
+            },
+            $listenerAbstract = function (AbstractTestEvent $event) {
+            },
+            function (\stdClass $event) {
+            },
+            $listenerFinal = function (FinalTestEvent $event) {
+            },
+            $listenerStoppable = function (StoppableEventInterface $event) {
+            },
+            $listenerInterface = function (TestEventInterface $event) {
+            }
         ];
         $provider = new ReflectionListenerProvider($listeners);
 
