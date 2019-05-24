@@ -1,102 +1,54 @@
 
-# Tale Event
-**A Tale Framework Component**
+[![Packagist](https://img.shields.io/packagist/v/talesoft/tale-event.svg?style=for-the-badge)](https://packagist.org/packages/talesoft/tale-event)
+[![License](https://img.shields.io/github/license/Talesoft/tale-event.svg?style=for-the-badge)](https://github.com/Talesoft/tale-event/blob/master/LICENSE.md)
+[![CI](https://img.shields.io/travis/Talesoft/tale-event.svg?style=for-the-badge)](https://travis-ci.org/Talesoft/tale-event)
+[![Coverage](https://img.shields.io/codeclimate/coverage/Talesoft/tale-stream.svg?style=for-the-badge)](https://codeclimate.com/github/Talesoft/tale-event)
 
-# What is Tale Event?
+Tale Stream
+===========
 
-Tale Event is a minimalistic and fast event-library for PHP
+What is Tale Stream?
+--------------------
 
-# Installation
+A PSR-14 Event Dispatcher implementation
 
-Install via Composer
+Installation
+------------
 
 ```bash
-composer require "talesoft/tale-event:*"
-composer install
+composer req talesoft/tale-event
 ```
 
-# Usage
-
-# Single Events
-
-```php
-$event = new Event('event-name');
-
-$event->addListener(function($e) {
-    
-    echo "Hello from $e->libraryName!";
-});
-
-$event->trigger([
-    'libraryName' => 'Tale Event'
-]);
-```
-
-
-# Default Prevention
+Usage
+-----
 
 ```php
-$event->addListener(function($e) {
+use Tale\Event\ListenerProvider\ReflectionListenerProvider;
+use Tale\EventDispatcher;
 
-    echo "I do my own stuff!";
-    $e->preventDefault();
-});
+$provider = new ReflectionListenerProvider();
+$dispatcher = new EventDispatcher($provider);
 
-if (!$event->trigger()) {
-    
-    //This will never be called, since ->trigger() returns false if the default was prevented with $e->preventDefault()
-    echo "Do the default stuff...";
-}
-```
-
-
-# Cancellation
-
-```php
-$event->addListener(function($e) {
-
-    echo "I will be called";
-    $e->cancel();
-});
-
-$event->addListener(function($e) {
-
-    echo "I won't be called, since the previous event cancelled me";
-});
-
-$event->trigger(); //<- Returns `false` since the event was cancelled, so we cancel the default as well
-```
-
-
-# Event Emitters
-
-```php
-
-class Socket
+class MyEvent
 {
-    use Tale\Event\EmitterTrait;
+    private $message = '';
     
-    public function connect()
+    public function setMessage(string $message): void
     {
-        
-        if ($this->emit('connecting')) {
-            
-            //connect...
-            $this->emit('connected');
-        }
+        $this->message = $message;
+    }
+    
+    public function getMessage(): string
+    {
+        return $this->message;
     }
 }
 
-$socket = new Socket();
-
-$socket->on('connecting', function($e) {
-    
-    if ($someInvalidState)
-        $e->preventDefault(); //Prevent connecting
+$provider->addListener(function (MyEvent $event) {
+    $event->setMessage('Hello from listener!');
 });
 
-$socket->on('connected', function() {
-    
-    echo 'Connected!';
-});
+$event = new MyEvent();
+$dispatcher->dispatch($event);
+echo $event->getMessage(); // "Hello from listener!"
 ```
