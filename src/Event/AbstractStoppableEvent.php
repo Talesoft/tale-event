@@ -4,10 +4,7 @@ namespace Tale\Event;
 
 abstract class AbstractStoppableEvent implements StoppableEventInterface
 {
-    /**
-     * @var bool
-     */
-    private $propagationStopped;
+    private bool $propagationStopped;
 
     public function __construct(bool $propagationStopped = false)
     {

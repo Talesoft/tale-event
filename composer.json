@@ -5,6 +5,12 @@
     "description": "A PSR-14 implementation",
     "license": "MIT",
     "homepage": "https://talesoft.codes",
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage-html": "phpunit --coverage-html=coverage",
+        "lint": "phpcs",
+        "lint:fix": "phpcbf"
+    },
     "authors": [
         {
             "name": "Torben Köhn",
@@ -12,7 +18,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1.0",
+        "php": ">=7.4.0",
         "psr/http-message": "^1.0",
         "psr/http-factory": "^1.0",
         "psr/event-dispatcher": "^1.0"
@@ -25,6 +31,7 @@
         "files": ["src/functions.php"]
     },
     "require-dev": {
-        "talesoft/tale-dev-tool": "dev-master"
+        "phpunit/phpunit": "^8.4",
+        "squizlabs/php_codesniffer": "^3.5"
     }
 }

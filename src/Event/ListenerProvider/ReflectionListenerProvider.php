@@ -10,10 +10,7 @@ use Tale\Event\ListenerRegistryInterface;
 
 final class ReflectionListenerProvider implements ListenerProviderInterface, ListenerRegistryInterface
 {
-    /**
-     * @var SplObjectStorage
-     */
-    private $listeners;
+    private SplObjectStorage $listeners;
 
     public function __construct(iterable $listeners = [])
     {
@@ -26,20 +23,20 @@ final class ReflectionListenerProvider implements ListenerProviderInterface, Lis
     public function addListener(Closure $handler): void
     {
         try {
-            $refl = new \ReflectionFunction($handler);
+            $reflection = new \ReflectionFunction($handler);
         } catch (\Exception $ex) {
-            throw new InvalidListenerException('Failed to reflect closure', $ex);
+            throw new InvalidListenerException('Failed to reflect closure. See inner exception for details.', $ex);
         }
-        $parameters = $refl->getParameters();
+
+        $parameters = $reflection->getParameters();
         if (count($parameters) !== 1) {
-            throw new InvalidListenerException('Closure needs to have exactly one parameter');
+            throw new InvalidListenerException('Closure needs to have exactly one parameter.');
         }
 
         $class = $parameters[0]->getClass();
         if (!$class) {
-            throw new InvalidListenerException('Closure parameter needs a type-hint on a valid class');
+            throw new InvalidListenerException('Closure parameter needs a type-hint on a valid class.');
         }
-
 
         $this->listeners->attach($handler, $class->getName());
     }

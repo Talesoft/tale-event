@@ -8,16 +8,16 @@ use Psr\EventDispatcher\StoppableEventInterface;
 
 final class EventDispatcher implements EventDispatcherInterface
 {
-    /**
-     * @var ListenerProviderInterface
-     */
-    private $listenerProvider;
+    private ListenerProviderInterface $listenerProvider;
 
     public function __construct(ListenerProviderInterface $listenerProvider)
     {
         $this->listenerProvider = $listenerProvider;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function dispatch(object $event)
     {
         $listeners = $this->listenerProvider->getListenersForEvent($event);

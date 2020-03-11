@@ -9,7 +9,7 @@ final class ClassMapListenerProvider implements ListenerProviderInterface
     /**
      * @var callable[][]
      */
-    private $classMap;
+    private array $classMap;
 
     public function __construct(array $classMap)
     {

@@ -9,7 +9,7 @@ final class ChainListenerProvider implements ListenerProviderInterface
     /**
      * @var iterable<ListenerProviderInterface>
      */
-    private $providers;
+    private iterable $providers;
 
     /**
      * ChainListenerProvider constructor.
